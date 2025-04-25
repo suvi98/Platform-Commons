@@ -1,0 +1,352 @@
+
+
+***************************   Organization Admin Operations    ****************************************************
+
+1. Admin can add a new employee:   ->      http://localhost:8091/admin/save_emp
+
+RequestBody:
+{
+  "name": "Rohit Warke",
+  "dateOfBirth": "1999-06-24",
+  "gender": "Male",
+  "employeeCode": "EM906646",
+  "email":"bhoisuvarna24@gmail.com",
+  "mobileNumber":"9763588471",
+  "emergencyContact":"8863588471"
+  "addresses": [
+    
+    {
+      "type": "Permanent",
+       "street": "Bhusawal",
+      "line1": "Lane no. 5",
+      "city": "Bhusawal",
+      "state": "MH",
+      "zip": "425201"
+    }
+  ]
+}
+
+ResponseBody:
+ {
+    "id": 27,
+    "name": "Rudresh Bhoi",
+    "gender": "Male",
+    "employeeCode": "EM906646",
+    "dateOfBirth": "2002-02-19",
+    "addresses": [
+        {
+            "type": "Permanent",
+            "line1": "Lane no. 5",
+            "city": "Bhusawal",
+            "state": "MH",
+            "zip": "425201"
+        }
+    ],
+    "departments": []
+}
+
+____________________________________________________________________________________________________________________
+
+2.Department Management
+Admin can create departments with the following attributes:   ->     http://localhost:8091/admin/save_dept
+RequestBody:
+{
+  "name": "DevOps",
+  "description": "Handles Project Deployment",
+  "type": "DevOps",
+  "numberOfEmployees": 20,
+  "responsibilities": "Handles Project Deployment"
+  
+}
+
+ResponseBody:
+{
+    "id": 8,
+    "name": "DevOps",
+    "description": "Handles Project Deployment",
+    "type": "DevOps",
+    "numberOfEmployees": 20,
+    "responsibilities": "Handles Project Deployment",
+    "employees": []
+}
+
+___________________________________________________________________________________________________________________-
+
+3. Assign Departments to Employees
+Admin can assign one or more departments to employees.  -> http://localhost:8091/admin/27/assign_dept
+
+RequestBody:
+[4,8]
+
+
+ResponseBody:
+{
+    "id": 27,
+    "name": "Rudresh Bhoi",
+    "gender": "Male",
+    "employeeCode": "EM906646",
+    "dateOfBirth": "2002-02-19",
+    "addresses": [
+        {
+            "type": "Permanent",
+            "line1": "Lane no. 5",
+            "city": "Bhusawal",
+            "state": "MH",
+            "zip": "425201"
+        }
+    ],
+    "departments": [
+        {
+            "id": 4,
+            "name": "IT",
+            "description": "Software Development",
+            "type": "IT",
+            "numberOfEmployees": 15,
+            "responsibilities": "Software Development",
+            "employees": null
+        },
+        {
+            "id": 8,
+            "name": "DevOps",
+            "description": "Handles Project Deployment",
+            "type": "DevOps",
+            "numberOfEmployees": 20,
+            "responsibilities": "Handles Project Deployment",
+            "employees": null
+        }
+    ]
+}
+
+____________________________________________________________________________________________________________________
+
+4. Search Functionalities:
+
+  a. Get employees by name  -> http://localhost:8091/admin/getEmployeeByName/Rohit%20Warke
+  
+  ResponseBody:
+  
+  {
+  "id": 1,
+  "name": "Rohit Warke",
+  "gender": "Male",
+  "employeeCode": "EM906646",
+  "dateOfBirth": "1999-06-24",
+  "email": "rohit.warke@example.com",
+  "mobileNumber": "9763588471",
+  "emergencyContact": "8863588471",
+  "addresses": [
+    {
+      "type": "Permanent",
+      "line1": "Lane no. 5",
+      "city": "Bhusawal",
+      "state": "MH",
+      "zip": "425201"
+    },
+    {
+      "type": "Correspondence",
+      "line1": "Baner Road",
+      "city": "Pune",
+      "state": "MH",
+      "zip": "411045"
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "name": "DevOps",
+      "description": "Handles Project Deployment",
+      "type": "DevOps",
+      "numberOfEmployees": 20,
+      "responsibilities": "Handles Project Deployment",
+      "employees": null
+    }
+  ]
+}
+ __________________________________________________________________________________________________________________
+ 
+  b. Get employees assigned to a specific department:   -> http://localhost:8091/admin/getEmployeeByDept/HR
+  
+  ResponseBody:
+  
+  [
+  {
+    "id": 2,
+    "name": "Ram Purohit",
+    "gender": "Male",
+    "employeeCode": "EM909776",
+    "dateOfBirth": "1876-02-19",
+    "email": "ram788@gmail.com",
+    "mobileNumber": "9978588471",
+    "emergencyContact": "6163588471",
+    "addresses": [
+      {
+        "type": "Resident",
+        "line1": "Lane no. 5",
+        "city": "Ayodya",
+        "state": "UP",
+        "zip": "765542"
+      },
+      {
+        "type": "Permanent",
+        "line1": "Lane no. 5",
+        "city": "Ayodya",
+        "state": "UP",
+        "zip": "765542"
+      }
+    ],
+    "departments": [
+      {
+        "id": 2,
+        "name": "Finance",
+        "description": "Invoice Processing",
+        "type": "Finance",
+        "numberOfEmployees": 10,
+        "responsibilities": "Invoice Processing",
+        "employees": null
+      },
+      {
+        "id": 5,
+        "name": "HR",
+        "description": "Handle Onboarding",
+        "type": "HR",
+        "numberOfEmployees": 10,
+        "responsibilities": "Handle Onboarding",
+        "employees": null
+      }
+    ]
+  }
+]
+
+********************************************** Employee Operations ************************************************
+
+1. Profile Management
+   Employees can update their profile  -> http://localhost:8091/emp/updateEmployee/1
+   
+   RequestBody:
+   
+{
+  "name": "Rohit Warke",
+  "dateOfBirth": "1999-06-24",
+  "gender": "Male",
+  "employeeCode": "EM906646",
+  "email": "rohit.warke@example.com",
+  "mobileNumber": "9763588471",
+  "emergencyContact": "8863588471",
+  "addresses": [
+    {
+      "type": "Permanent",
+      "street": "Bhusawal",
+      "line1": "Lane no. 5",
+      "city": "Bhusawal",
+      "state": "MH",
+      "zip": "425201"
+    },
+    {
+      "type": "Correspondence",
+      "street": "Pune",
+      "line1": "Baner Road",
+      "city": "Pune",
+      "state": "MH",
+      "zip": "411045"
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "name": "Engineering",
+      "type": "Technical",
+      "description": "Handles all technical development",
+      "numberOfEmployees": 50,
+      "responsibilities": "Develop software, maintain infrastructure"
+    },
+    {
+      "id": 2,
+      "name": "HR",
+      "type": "Administrative",
+      "description": "Human Resources Department",
+      "numberOfEmployees": 10,
+      "responsibilities": "Recruitment, employee engagement"
+    }
+  ]
+}
+   
+ResponseBody:
+
+{
+    "id": 1,
+    "name": "Rohit Warke",
+    "gender": "Male",
+    "employeeCode": "EM906646",
+    "dateOfBirth": "1999-06-24",
+    "email": "rohit.warke@example.com",
+    "mobileNumber": "9763588471",
+    "emergencyContact": "8863588471",
+    "addresses": [
+        {
+            "type": "Permanent",
+            "line1": "Lane no. 5",
+            "city": "Bhusawal",
+            "state": "MH",
+            "zip": "425201"
+        },
+        {
+            "type": "Correspondence",
+            "line1": "Baner Road",
+            "city": "Pune",
+            "state": "MH",
+            "zip": "411045"
+        }
+    ],
+    "departments": [
+        {
+            "id": 4,
+            "name": "Engineeing",
+            "description": "Handle processing",
+            "type": "Engineeing",
+            "numberOfEmployees": 30,
+            "responsibilities": "Handle processing",
+            "employees": null
+        },
+        {
+            "id": 1,
+            "name": "DevOps",
+            "description": "Handles Project Deployment",
+            "type": "DevOps",
+            "numberOfEmployees": 20,
+            "responsibilities": "Handles Project Deployment",
+            "employees": null
+        }
+    ]
+}
+   
+ ___________________________________________________________________________________________________________________
+ 
+2. Department Information:
+
+  a. Search for departments they are assigned to: -> http://localhost:8091/emp/employee/1/departments
+  
+  ResponseBody:
+   [
+  {
+    "id": 1,
+    "name": "DevOps",
+    "description": "Handles Project Deployment",
+    "type": "DevOps",
+    "numberOfEmployees": 20,
+    "responsibilities": "Handles Project Deployment",
+    "employees": null
+  }
+]
+
+____________________________________________________________________________________________________________________
+
+ b. Request removal from a department (optional advanced feature) -> http://localhost:8091/emp/1/dateleDepartment/3
+ 
+ ResponseBody: Department delete Successfully..
+ 
+ 
+
+
+
+
+
